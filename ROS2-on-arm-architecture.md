@@ -22,7 +22,7 @@ aarch64-linux-gnu    download *_aarch64-linux-gnu.tar.xz
 
 ```
 tar xvf *.tar.xz
-export PATH="<path to 64bit toolchain>/bin:$PATH"
+export PATH="<path to toolchain>/bin:$PATH"
 export CROSS_COMPILE=aarch64-linux-gnu-
 ```
 
