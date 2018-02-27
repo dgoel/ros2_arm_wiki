@@ -17,8 +17,6 @@ vcs-import src < ros2-for-arm.repos
 ## Get an aarch64 toolchain and export it
 You need to download the following compiler *_aarch64-linux-gnu.tar.xz (GCC 6.1.1): 
 https://releases.linaro.org/components/toolchain/binaries/6.1-2016.08/
-aarch64-linux-gnu
-
 
 ```
 tar xvf *.tar.xz
