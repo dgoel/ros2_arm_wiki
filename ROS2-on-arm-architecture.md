@@ -19,23 +19,16 @@ vcs-import src < ros2-for-arm.repos
 ```
 sudo apt install g++-aarch64-linux-gnu gcc-aarch64-linux-gnu
 
+#if you are not using the above toolchain 
 export PATH="<path to toolchain>/bin:$PATH"
+
 export CROSS_COMPILE=aarch64-linux-gnu-
 ```
 
-## Remove Python support
-No target filesystem with Python libraries is provided here, so Python is not supported (only C++). But if you have a copy of your target rootfs, you can set the CMAKE_SYSROOT variable to it and you would be able to use Python. 
-A few packages must be modified to allow the compilation of ROS2:
-- remove Python generator from `rosidl_default_generators`
-	- `src/ros2/rosidl_typesupport/rosidl_default_generators/CMakeLists.txt`: comment `ament_export_dependencies(rosidl_generator_py)` (line 11) with a `#`
-	- `src/ros2/rosidl_typesupport/rosidl_default_generators/package.xml`: comment `<buildtool_export_depend>rosidl_generator_py</buildtool_export_depend>`(line 16) with `<!-- ... -->`
-- ignore examples/rclpy
-	- `src/ros2/examples/rclpy` : add an empty file called `AMENT_IGNORE`
-- ignore `test_msgs` (this one use the path to the python libraries during the install step and in this case try to install under `/test_msgs` because of the missing path !)
-	- `src/ros2/rcl_interfaces/test_msgs` : add an empty file called `AMENT_IGNORE`
-- ignore others repos (see list below)
+## Remove Python support and ignore optional packages
+No target filesystem with Python libraries is provided here, so Python is not supported (only C++). But if you have a copy of your target rootfs, you can set the CMAKE_SYSROOT variable to it and you would be able to use Python.
 
-You can do all of this with:
+A few packages must be modified to allow the compilation of ROS2:
 
 ```
 sed -e '/py/ s/^#*/#/' -i src/ros2/rosidl_typesupport/rosidl_default_generators/CMakeLists.txt
@@ -58,6 +51,15 @@ touch \
   src/ros2/urdfdom/AMENT_IGNORE \
   src/ros2/urdfdom_headers/AMENT_IGNORE
 ```
+This lines:
+- remove Python generator from `rosidl_default_generators`
+	- `src/ros2/rosidl_typesupport/rosidl_default_generators/CMakeLists.txt`: comment `ament_export_dependencies(rosidl_generator_py)` (line 11) with a `#`
+	- `src/ros2/rosidl_typesupport/rosidl_default_generators/package.xml`: comment `<buildtool_export_depend>rosidl_generator_py</buildtool_export_depend>`(line 16) with `<!-- ... -->`
+- ignore examples/rclpy
+	- `src/ros2/examples/rclpy` : add an empty file called `AMENT_IGNORE`
+- ignore `test_msgs` (this one use the path to the python libraries during the install step and in this case try to install under `/test_msgs` because of the missing path !)
+	- `src/ros2/rcl_interfaces/test_msgs` : add an empty file called `AMENT_IGNORE`
+- ignore others repos (see list above)
 
 ## Trigger a build
 ```
