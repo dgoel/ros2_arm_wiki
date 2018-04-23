@@ -42,6 +42,8 @@ touch \
   src/ros2/orocos_kinematics_dynamics/AMENT_IGNORE \
   src/ros2/rclpy/AMENT_IGNORE \
   src/ros2/rcl_interfaces/test_msgs/AMENT_IGNORE \
+  src/ros2/rmw_connext/AMENT_IGNORE \
+  src/ros2/rmw_opensplice/AMENT_IGNORE \
   src/ros2/robot_state_publisher/AMENT_IGNORE \
   src/ros2/ros1_bridge/AMENT_IGNORE \
   src/ros2/rosidl/rosidl_generator_py/AMENT_IGNORE \
