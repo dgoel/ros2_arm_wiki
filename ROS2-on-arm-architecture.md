@@ -25,6 +25,20 @@ export PATH="<path to toolchain>/bin:$PATH"
 export CROSS_COMPILE=aarch64-linux-gnu-
 ```
 
+## Apply patch
+
+If your toolchain requires a sysroot, apply the following patch:
+
+```
+cd src/eProsima/FAST-RTPS
+wget https://patch-diff.githubusercontent.com/raw/eProsima/Fast-RTPS/pull/216.diff -O eprosima_216.patch
+patch -p1 < eprosima_216.patch
+
+```
+
+See [PR #216](https://github.com/eProsima/Fast-RTPS/pull/216/) for details about the fix.
+
+
 ## Remove Python support and ignore optional packages
 No target filesystem with Python libraries is provided here, so Python is not supported (only C++). But if you have a copy of your target rootfs, you can set the CMAKE_SYSROOT variable to it and you would be able to use Python.
 
